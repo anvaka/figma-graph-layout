@@ -1,7 +1,6 @@
 ## Graph Layout for Figma
 
-This plugin allows Figma users to insert a `.dot` file and
-render it as a graph in the Figma editor.
+[This plugin](https://www.figma.com/community/plugin/1128567246085977264) allows Figma users to insert a `.dot` file and render it as a graph in the Figma editor.
 
 ![dot file being imported into Figma](screenshot.png)
 

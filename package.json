@@ -1,0 +1,15 @@
+{
+  "name": "graph-layout",
+  "version": "1.0.0",
+  "description": "Graph layout with graphviz",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "author": "anvaka",
+  "license": "MIT",
+  "devDependencies": {
+    "@figma/plugin-typings": "*",
+    "typescript": "*"
+  }
+}

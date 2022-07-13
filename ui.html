@@ -1,0 +1,52 @@
+<script src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js"></script>
+<script>
+    var hpccWasm = window["@hpcc-js/wasm"];
+</script>
+<p>Paste your dot file here:
+<a href="https://graphviz.org/doc/info/lang.html" style="float:right; text-decoration: none; font-size:12px" target="_blank">syntax help</a>
+</p>
+<textarea id="dot" rows="14" cols="60">digraph G {
+  Hello -> World
+}</textarea>
+<div style="margin: 8px 0">
+  <label for="layouts">Layout: </label>
+  <select id="layouts" name="layouts">
+    <option value="dot">dot</option>
+    <option value="fdp">fdp</option>
+    <option value="sfdp">sfdp</option>
+    <option value="circo">circo</option>
+    <option value="neato">neato</option>
+    <option value="twopi">twopi</option>
+    <option value="osage">osage</option>
+    <option value="patchwork">patchwork</option>
+  </select>
+</div>
+<div id="log" style="font-size: 12px; float: left;"></div>
+<div style="text-align: right;">
+  <button id="cancel">Cancel</button>
+  <button id="create">Layout and visualize</button>
+</div>
+<script>
+
+document.getElementById('create').onclick = () => {
+  const textbox = document.getElementById('dot');
+  const dot = textbox.value;
+  const layout = document.getElementById('layouts').value;
+  const log = document.getElementById('log');
+  log.style.color = '#999';
+  log.innerText = 'Computing...';
+  log.style.display = 'block';
+  hpccWasm.graphviz.layout(dot, "svg", layout).then(svg => {
+    log.style.display = 'none';
+    parent.postMessage({ pluginMessage: { type: 'layout-done', svg } }, '*')
+  }).catch(err => {
+    log.innerText = err.message;
+    log.style.color = 'orangered';
+  })
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+
+</script>
